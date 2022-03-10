@@ -1,0 +1,1 @@
+{"version":3,"file":"scopes.js","sourceRoot":"","sources":["../../src/constants/scopes.ts"],"names":[],"mappings":";;;AAAa,QAAA,UAAU,GAAG;IACzB,kBAAkB,EAAE,oBAAoB;IACxC,kBAAkB,EAAE,oBAAoB;IACxC,GAAG,EAAE,EAAE;CACP,CAAC;AAEW,QAAA,MAAM,GAAI;IACtB,WAAW,EAAE;QACZ,IAAI,EAAE,sBAAsB;QAC5B,QAAQ,EAAE,kBAAU,CAAC,kBAAkB;KACvC;CACD,CAAC"}
