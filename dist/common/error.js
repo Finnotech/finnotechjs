@@ -2,9 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class FinnotechError extends Error {
     constructor(functionName, data) {
-        super();
-        this.message = `${functionName}: ${data}`;
-        this.data = data;
+        console.error(`${functionName}: ${data}`);
+        super(data);
     }
 }
 exports.default = FinnotechError;

@@ -1,10 +1,7 @@
-class FinnotechError extends Error {
-    readonly data: any;
-    
+class FinnotechError extends Error {    
 	constructor(functionName: string, data: any) {
-		super();
-		this.message = `${functionName}: ${data}`;
-        this.data = data
+		console.error(`${functionName}: ${data}`);
+		super(data);
 	}
 }
 

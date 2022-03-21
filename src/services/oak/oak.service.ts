@@ -42,7 +42,7 @@ class OakService {
 			return result;
 		} catch (err) {
 			const error = err as AxiosError;
-			throw new FinnotechError('getClientCredentialToken', error);
+			throw error;
 		}
 	}
 }

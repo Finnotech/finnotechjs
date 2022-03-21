@@ -8,12 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const scopes_1 = require("../../constants/scopes");
-const error_1 = __importDefault(require("../../common/error"));
 const helper_1 = require("../../common/helper");
 class OakService {
     constructor(tokenService, httpService) {
@@ -45,7 +41,7 @@ class OakService {
             }
             catch (err) {
                 const error = err;
-                throw new error_1.default('getClientCredentialToken', error);
+                throw error;
             }
         });
     }

@@ -76,7 +76,7 @@ class TokenService {
             }
             catch (err) {
                 const error = err;
-                throw new error_1.default('getClientCredentialToken', error);
+                throw error;
             }
         });
     }

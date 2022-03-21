@@ -1,12 +1,13 @@
-export const GRANT_TYPE = {
-	CLIENT_CREDENTIALS: 'client_credentials',
-	AUTHORIZATION_CODE: 'authorization_code',
-	SMS: '',
-};
+export enum GRANT_TYPE {
+	CLIENT_CREDENTIALS = 'client_credentials',
+	AUTHORIZATION_CODE = 'authorization_code',
+	SMS = '',
+}
 
-export const SCOPES =  {
-	ibanInquiry: {
-		name: 'oak:iban-inquiry:get',
-		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
-	},
-};
+export const SCOPES: { [key: string]: { name: string; authMode: GRANT_TYPE } } =
+	{
+		ibanInquiry: {
+			name: 'oak:iban-inquiry:get',
+			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+		},
+	};

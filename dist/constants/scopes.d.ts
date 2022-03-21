@@ -1,11 +1,11 @@
-export declare const GRANT_TYPE: {
-    CLIENT_CREDENTIALS: string;
-    AUTHORIZATION_CODE: string;
-    SMS: string;
-};
+export declare enum GRANT_TYPE {
+    CLIENT_CREDENTIALS = "client_credentials",
+    AUTHORIZATION_CODE = "authorization_code",
+    SMS = ""
+}
 export declare const SCOPES: {
-    ibanInquiry: {
+    [key: string]: {
         name: string;
-        authMode: string;
+        authMode: GRANT_TYPE;
     };
 };
