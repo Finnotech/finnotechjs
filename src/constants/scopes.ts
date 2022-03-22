@@ -18,4 +18,8 @@ export const SCOPES: { [key: string]: { name: string; authMode: GRANT_TYPE } } =
 			name: 'oak:card-statement:get',
 			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
 		},
+		cardStatement: {
+			name: 'oak:card-statement:get',
+			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+		},
 	};
