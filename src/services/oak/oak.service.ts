@@ -4,7 +4,10 @@ import { SCOPES } from '../../constants/scopes';
 import FinnotechError from '../../common/error';
 import TokenService from '../token/token.service';
 import { generateUUID } from '../../common/helper';
-import { FinnotechIbanInquiryResponse } from './interfaces';
+import {
+	IFinnotechCardBalanceResponse,
+	IFinnotechIbanInquiryResponse,
+} from './interfaces';
 
 class OakService {
 	private readonly tokenService: TokenService;
@@ -16,12 +19,15 @@ class OakService {
 	}
 
 	/**
-	 * For iban inquiry service. [document page](https://devbeta.finnotech.ir/oak-ibanInquiry.html)
+	 * For iban inquiry service. [document page](https://devbeta.finnotech.ir/oak-ibanInquiry.html?utm_medium=npm-package)
 	 * @param data required data for service call
 	 * @param trackId `Optional` tracking code. should be **unique** in every request
 	 * @returns service result
 	 */
-	async ibanInquiry(data: { iban: string }, trackId?: string) {
+	async ibanInquiry(
+		data: { iban: string },
+		trackId?: string
+	): Promise<IFinnotechIbanInquiryResponse> {
 		const serviceScope = SCOPES.ibanInquiry.name;
 		const clientId = this.tokenService.clientId;
 		const path = `/oak/v2/clients/${clientId}/ibanInquiry`;
@@ -38,7 +44,47 @@ class OakService {
 				},
 			});
 
-			const result: FinnotechIbanInquiryResponse = finnotechResponse.data;
+			const result: IFinnotechIbanInquiryResponse =
+				finnotechResponse.data;
+			return result;
+		} catch (err) {
+			const error = err as AxiosError;
+			throw error;
+		}
+	}
+
+	/**
+	 * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)
+	 * @param data required data for service call
+	 * @param trackId `Optional` tracking code. should be **unique** in every request
+	 * @returns service result
+	 */
+	async cardBalance(
+		data: { card: string },
+		trackId?: string
+	): Promise<IFinnotechCardBalanceResponse> {
+		const serviceScope = SCOPES.cardBalance.name;
+		const clientId = this.tokenService.clientId;
+		const path = `/oak/v2/clients/${clientId}/card/balance`;
+		const finalTrackId = trackId || generateUUID();
+		const accessToken = await this.tokenService.getAccessToken(
+			serviceScope
+		);
+
+		try {
+			const finnotechResponse = await this.httpService.post(
+				path,
+				{ card: data.card },
+				{
+					params: { trackId: finalTrackId },
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			const result: IFinnotechCardBalanceResponse =
+				finnotechResponse.data;
 			return result;
 		} catch (err) {
 			const error = err as AxiosError;

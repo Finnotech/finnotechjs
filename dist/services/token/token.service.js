@@ -24,6 +24,11 @@ class TokenService {
         this._setTokens = data.setTokensFunction;
         this._httpService = httpService;
     }
+    /**
+     * **Internal Method** for getting service access token
+     * @param scopeName scope name
+     * @returns result of initiated `getAccessToken` function
+     */
     getAccessToken(scopeName) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this._getAccessToken) {
@@ -35,6 +40,10 @@ class TokenService {
             return this._getAccessToken(scopeName);
         });
     }
+    /**
+     * For getting client-credentials token for requested scopes by their scope names. **This function will finally call `setTokens` function**. [document page](https://devbeta.finnotech.ir/boomrang-get-clientCredential-token.html?sandbox=undefined)
+     * @param scopes List of scope names. Final token information will be for these scopes
+     */
     getClientCredentialToken(scopes) {
         return __awaiter(this, void 0, void 0, function* () {
             if (scopes.length === 0) {

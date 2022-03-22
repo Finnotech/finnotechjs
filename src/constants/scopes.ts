@@ -10,4 +10,8 @@ export const SCOPES: { [key: string]: { name: string; authMode: GRANT_TYPE } } =
 			name: 'oak:iban-inquiry:get',
 			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
 		},
+		cardBalance: {
+			name: 'oak:card-balance:get', // but the method is post
+			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+		},
 	};

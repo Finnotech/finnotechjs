@@ -1,4 +1,4 @@
-export interface FinnotechIbanInquiryResponse {
+export interface IFinnotechIbanInquiryResponse {
 	trackId: string;
 	result: {
 		IBAN: string;
@@ -12,6 +12,14 @@ export interface FinnotechIbanInquiryResponse {
 		}[];
 		depositStatus: string;
 		errorDescription: string;
+	};
+	status: string;
+}
+
+export interface IFinnotechCardBalanceResponse {
+	trackId: string;
+	result: {
+		balance: string;
 	};
 	status: string;
 }

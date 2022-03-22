@@ -17,7 +17,7 @@ class OakService {
         this.httpService = httpService;
     }
     /**
-     * For iban inquiry service. [document page](https://devbeta.finnotech.ir/oak-ibanInquiry.html)
+     * For iban inquiry service. [document page](https://devbeta.finnotech.ir/oak-ibanInquiry.html?utm_medium=npm-package)
      * @param data required data for service call
      * @param trackId `Optional` tracking code. should be **unique** in every request
      * @returns service result
@@ -32,6 +32,35 @@ class OakService {
             try {
                 const finnotechResponse = yield this.httpService.get(path, {
                     params: { iban: data.iban, trackId: finalTrackId },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
+     * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service result
+     */
+    cardBalance(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.cardBalance.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/card/balance`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                const finnotechResponse = yield this.httpService.post(path, { card: data.card }, {
+                    params: { trackId: finalTrackId },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },

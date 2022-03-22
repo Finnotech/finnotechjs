@@ -15,7 +15,16 @@ declare class TokenService {
         getRefreshTokenFunction: Function;
         setTokensFunction: Function;
     }, httpService: AxiosInstance);
+    /**
+     * **Internal Method** for getting service access token
+     * @param scopeName scope name
+     * @returns result of initiated `getAccessToken` function
+     */
     getAccessToken(scopeName: string): Promise<string>;
-    getClientCredentialToken(scopes: string[]): Promise<any>;
+    /**
+     * For getting client-credentials token for requested scopes by their scope names. **This function will finally call `setTokens` function**. [document page](https://devbeta.finnotech.ir/boomrang-get-clientCredential-token.html?sandbox=undefined)
+     * @param scopes List of scope names. Final token information will be for these scopes
+     */
+    getClientCredentialToken(scopes: string[]): Promise<void>;
 }
 export default TokenService;
