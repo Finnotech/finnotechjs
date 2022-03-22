@@ -20,7 +20,7 @@ class OakService {
      * For iban inquiry service. [document page](https://devbeta.finnotech.ir/oak-ibanInquiry.html?utm_medium=npm-package)
      * @param data required data for service call
      * @param trackId `Optional` tracking code. should be **unique** in every request
-     * @returns service result
+     * @returns service response body
      */
     ibanInquiry(data, trackId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -49,7 +49,7 @@ class OakService {
      * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)
      * @param data required data for service call
      * @param trackId `Optional` tracking code. should be **unique** in every request
-     * @returns service result
+     * @returns service response body
      */
     cardBalance(data, trackId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -60,6 +60,39 @@ class OakService {
             const accessToken = yield this.tokenService.getAccessToken(serviceScope);
             try {
                 const finnotechResponse = yield this.httpService.post(path, { card: data.card }, {
+                    params: { trackId: finalTrackId },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
+     * For card statement service. [document page](https://devbeta.finnotech.ir/oak-card-statement.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    cardStatement(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.cardStatement.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/card/statement`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                const finnotechResponse = yield this.httpService.post(path, {
+                    card: data.card,
+                    fromDate: data.fromDate || '',
+                    toDate: data.toDate || '',
+                }, {
                     params: { trackId: finalTrackId },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
