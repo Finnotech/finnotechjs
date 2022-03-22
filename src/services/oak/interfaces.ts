@@ -23,3 +23,25 @@ export interface IFinnotechCardBalanceResponse {
 	};
 	status: string;
 }
+
+export interface IFinnotechCardStatementResponse {
+	trackId: string;
+	result: {
+		transactions: {
+			trace: number;
+			pan: string;
+			financialdate: string;
+			Local_Date: string;
+			timein: string;
+			Local_Time: string;
+			acqinst: number;
+			acc_termid: string;
+			refnum: string;
+			prcode: string;
+			pos_cond_code: string;
+			amount: string;
+			available: string;
+		}[];
+	};
+	status: string;
+}

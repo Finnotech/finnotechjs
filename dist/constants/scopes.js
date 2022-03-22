@@ -16,5 +16,9 @@ exports.SCOPES = {
         name: 'oak:card-balance:get',
         authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
     },
+    cardStatement: {
+        name: 'oak:card-statement:get',
+        authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+    },
 };
 //# sourceMappingURL=scopes.js.map
