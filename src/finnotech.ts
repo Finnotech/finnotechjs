@@ -1,4 +1,5 @@
 import createHttpService from './common/http';
+import { GRANT_TYPE } from './constants/scopes';
 import OakService from './services/oak/oak.service';
 import TokenService from './services/token/token.service';
 
@@ -51,7 +52,7 @@ class Finnotech {
 				refreshToken: string;
 				lifeTime: number;
 				scopes: string[];
-				tokenType: string
+				tokenType: GRANT_TYPE;
 			}) => Promise<void> | void;
 			/**
 			 * `Optional` to use sandbox (mock version) pass `true`. Otherwise you can ignore this field
