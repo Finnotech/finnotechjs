@@ -20,5 +20,9 @@ exports.SCOPES = {
         name: 'oak:card-statement:get',
         authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
     },
+    depositToIban: {
+        name: 'oak:deposit-to-iban:get',
+        authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+    },
 };
 //# sourceMappingURL=scopes.js.map

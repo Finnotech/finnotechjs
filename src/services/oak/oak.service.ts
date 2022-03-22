@@ -7,6 +7,7 @@ import { generateUUID } from '../../common/helper';
 import {
 	IFinnotechCardBalanceResponse,
 	IFinnotechCardStatementResponse,
+	IFinnotechDepositToIbanResponse,
 	IFinnotechIbanInquiryResponse,
 } from './interfaces';
 
@@ -138,6 +139,45 @@ class OakService {
 			);
 
 			const result: IFinnotechCardStatementResponse =
+				finnotechResponse.data;
+			return result;
+		} catch (err) {
+			const error = err as AxiosError;
+			throw error;
+		}
+	}
+
+	/**
+	 * For deposit to iban service. [document page](https://devbeta.finnotech.ir/oak-deposits-to-IBAN-get.html?utm_medium=npm-package)
+	 * @param data required data for service call
+	 * @param trackId `Optional` tracking code. should be **unique** in every request
+	 * @returns service response body
+	 */
+	async depositToIban(
+		data: { deposit: string; bank: string },
+		trackId?: string
+	): Promise<IFinnotechDepositToIbanResponse> {
+		const serviceScope = SCOPES.depositToIban.name;
+		const clientId = this.tokenService.clientId;
+		const path = `/oak/v2/clients/${clientId}/iban`;
+		const finalTrackId = trackId || generateUUID();
+		const accessToken = await this.tokenService.getAccessToken(
+			serviceScope
+		);
+
+		try {
+			const finnotechResponse = await this.httpService.get(path, {
+				params: {
+					bank: data.bank,
+					deposit: data.deposit,
+					trackId: finalTrackId,
+				},
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
+
+			const result: IFinnotechDepositToIbanResponse =
 				finnotechResponse.data;
 			return result;
 		} catch (err) {

@@ -107,6 +107,39 @@ class OakService {
             }
         });
     }
+    /**
+     * For deposit to iban service. [document page](https://devbeta.finnotech.ir/oak-deposits-to-IBAN-get.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    depositToIban(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.depositToIban.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/iban`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                const finnotechResponse = yield this.httpService.get(path, {
+                    params: {
+                        bank: data.bank,
+                        deposit: data.deposit,
+                        trackId: finalTrackId,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
 }
 exports.default = OakService;
 //# sourceMappingURL=oak.service.js.map

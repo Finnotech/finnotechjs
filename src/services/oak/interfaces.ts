@@ -45,3 +45,20 @@ export interface IFinnotechCardStatementResponse {
 	};
 	status: string;
 }
+
+export interface IFinnotechDepositToIbanResponse {
+	trackId: string;
+	result: {
+		IBAN: string;
+		deposit: string;
+		bankName: string;
+		depositDescription: string;
+		depositStatus: string;
+		depositOwners: {
+			firstName: string;
+			lastName: string;
+		}[];
+		depositComment: string;
+	};
+	status: string;
+}
