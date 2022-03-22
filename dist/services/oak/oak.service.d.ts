@@ -48,6 +48,9 @@ declare class OakService {
      */
     depositToIban(data: {
         deposit: string;
+        /**
+         * bank code from documentation
+         */
         bank: string;
     }, trackId?: string): Promise<IFinnotechDepositToIbanResponse>;
 }

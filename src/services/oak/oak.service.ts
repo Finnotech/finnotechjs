@@ -154,7 +154,13 @@ class OakService {
 	 * @returns service response body
 	 */
 	async depositToIban(
-		data: { deposit: string; bank: string },
+		data: { 
+			deposit: string; 
+			/**
+			 * bank code from documentation
+			 */
+			bank: string;
+		},
 		trackId?: string
 	): Promise<IFinnotechDepositToIbanResponse> {
 		const serviceScope = SCOPES.depositToIban.name;
