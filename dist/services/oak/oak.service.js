@@ -8,7 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const form_data_1 = __importDefault(require("form-data"));
 const scopes_1 = require("../../constants/scopes");
 const helper_1 = require("../../common/helper");
 class OakService {
@@ -35,6 +39,44 @@ class OakService {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
+     * For submitting new group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    submitGroupIbanInquiry(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.groupIbanInquiryPost.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                let finalFile;
+                if (data.file instanceof Blob) {
+                    finalFile = data.file;
+                }
+                else {
+                    finalFile = (0, helper_1.convertBase64ToBlob)(data.file);
+                }
+                const dataForm = new form_data_1.default();
+                dataForm.append('ibansFile', finalFile);
+                const finnotechResponse = yield this.httpService.post(path, dataForm, {
+                    params: {
+                        trackId: finalTrackId,
+                    },
+                    headers: Object.assign(Object.assign({}, dataForm.getHeaders()), { Authorization: `Bearer ${accessToken}` }),
                 });
                 const result = finnotechResponse.data;
                 return result;

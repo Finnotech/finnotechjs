@@ -15,6 +15,18 @@ declare class OakService {
         iban: string;
     }, trackId?: string): Promise<IFinnotechIbanInquiryResponse>;
     /**
+     * For submitting new group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    submitGroupIbanInquiry(data: {
+        /**
+         * `csv` file of **ibans**. It should be `base64` encoded `string` or `Blob` file
+         */
+        file: string | Blob;
+    }, trackId?: string): Promise<any>;
+    /**
      * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)
      * @param data required data for service call
      * @param trackId `Optional` tracking code. should be **unique** in every request
