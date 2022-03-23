@@ -1,14 +1,16 @@
 import { AxiosError, AxiosInstance } from 'axios';
+import FormData from 'form-data';
 
 import { SCOPES } from '../../constants/scopes';
 import FinnotechError from '../../common/error';
 import TokenService from '../token/token.service';
-import { generateUUID } from '../../common/helper';
+import { generateUUID, convertBase64ToBlob } from '../../common/helper';
 import {
 	IFinnotechCardBalanceResponse,
 	IFinnotechCardStatementResponse,
 	IFinnotechDepositToIbanResponse,
 	IFinnotechIbanInquiryResponse,
+	IFinnotechSubmitGroupIbanInquiryResponse,
 } from './interfaces';
 
 class OakService {
@@ -47,6 +49,63 @@ class OakService {
 			});
 
 			const result: IFinnotechIbanInquiryResponse =
+				finnotechResponse.data;
+			return result;
+		} catch (err) {
+			const error = err as AxiosError;
+			throw error;
+		}
+	}
+
+	/**
+	 * For submitting new group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+	 * @param data required data for service call
+	 * @param trackId `Optional` tracking code. should be **unique** in every request
+	 * @returns service response body
+	 */
+	async submitGroupIbanInquiry(
+		data: {
+			/**
+			 * `csv` file of **ibans**. It should be `base64` encoded `string` or `Blob` file
+			 */
+			file: string | Blob;
+		},
+		trackId?: string
+	): Promise<any> {
+		const serviceScope = SCOPES.groupIbanInquiryPost.name;
+		const clientId = this.tokenService.clientId;
+		const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
+		const finalTrackId = trackId || generateUUID();
+		const accessToken = await this.tokenService.getAccessToken(
+			serviceScope
+		);
+
+		try {
+			let finalFile: Blob;
+			if (data.file instanceof Blob) {
+				finalFile = data.file;
+			} else {
+				finalFile = convertBase64ToBlob(data.file);
+			}
+
+			const dataForm = new FormData();
+			dataForm.append('ibansFile', finalFile);
+
+			const finnotechResponse = await this.httpService.post(
+				path,
+				dataForm,
+				{
+					params: {
+						trackId: finalTrackId,
+					},
+					headers: {
+						...dataForm.getHeaders(),
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			const result: IFinnotechSubmitGroupIbanInquiryResponse =
 				finnotechResponse.data;
 			return result;
 		} catch (err) {
@@ -154,8 +213,8 @@ class OakService {
 	 * @returns service response body
 	 */
 	async depositToIban(
-		data: { 
-			deposit: string; 
+		data: {
+			deposit: string;
 			/**
 			 * bank code from documentation
 			 */

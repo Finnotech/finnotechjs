@@ -16,6 +16,14 @@ export interface IFinnotechIbanInquiryResponse {
 	status: string;
 }
 
+export interface IFinnotechSubmitGroupIbanInquiryResponse {
+	trackId: string;
+	result: {
+		message: string;
+	};
+	status: string;
+}
+
 export interface IFinnotechCardBalanceResponse {
 	trackId: string;
 	result: {
