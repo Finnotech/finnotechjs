@@ -4,26 +4,25 @@ export enum GRANT_TYPE {
 	SMS = '',
 }
 
-export const SCOPES: { [key: string]: { name: string; authMode: GRANT_TYPE } } =
-	{
-		ibanInquiry: {
-			name: 'oak:iban-inquiry:get',
-			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
-		},
-		groupIbanInquiryPost: {
-			name: 'oak:group-iban-inquiry:post',
-			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
-		},
-		cardBalance: {
-			name: 'oak:card-balance:get',
-			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
-		},
-		cardStatement: {
-			name: 'oak:card-statement:get',
-			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
-		},
-		depositToIban: {
-			name: 'oak:deposit-to-iban:get',
-			authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
-		},
-	};
+export const SCOPES = {
+	ibanInquiry: {
+		name: 'oak:iban-inquiry:get',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	},
+	groupIbanInquiryPost: {
+		name: 'oak:group-iban-inquiry:post',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	},
+	cardBalance: {
+		name: 'oak:card-balance:get',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	},
+	cardStatement: {
+		name: 'oak:card-statement:get',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	},
+	depositToIban: {
+		name: 'oak:deposit-to-iban:get',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	},
+};

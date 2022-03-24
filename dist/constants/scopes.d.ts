@@ -4,7 +4,23 @@ export declare enum GRANT_TYPE {
     SMS = ""
 }
 export declare const SCOPES: {
-    [key: string]: {
+    ibanInquiry: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
+    groupIbanInquiryPost: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
+    cardBalance: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
+    cardStatement: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
+    depositToIban: {
         name: string;
         authMode: GRANT_TYPE;
     };
