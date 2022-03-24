@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { AxiosInstance } from 'axios';
 import TokenService from '../token/token.service';
-import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse, IFinnotechSubmitGroupIbanInquiryResponse } from './interfaces';
+import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechCifInquiryResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse, IFinnotechSubmitGroupIbanInquiryResponse } from './interfaces';
 declare class OakService {
     private readonly tokenService;
     private readonly httpService;
@@ -90,5 +90,14 @@ declare class OakService {
          */
         bank: string;
     }, trackId?: string): Promise<IFinnotechDepositToIbanResponse>;
+    /**
+     * For cif inquiry service. [document page](https://devbeta.finnotech.ir/oak-cifInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    cifInquiry(data: {
+        nid: string;
+    }, trackId?: string): Promise<IFinnotechCifInquiryResponse>;
 }
 export default OakService;

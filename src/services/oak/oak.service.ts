@@ -8,6 +8,7 @@ import { generateUUID } from '../../common/helper';
 import {
 	IFinnotechCardBalanceResponse,
 	IFinnotechCardStatementResponse,
+	IFinnotechCifInquiryResponse,
 	IFinnotechDepositToIbanResponse,
 	IFinnotechIbanInquiryResponse,
 	IFinnotechSubmitGroupIbanInquiryResponse,
@@ -176,7 +177,7 @@ class OakService {
 			/**
 			 * The **trackId** which used in **submitting** group iban inquiry request
 			 */
-			inquiryTrackId: string
+			inquiryTrackId: string;
 		},
 		trackId?: string
 	): Promise<string> {
@@ -189,21 +190,17 @@ class OakService {
 		);
 
 		try {
-			const finnotechResponse = await this.httpService.get(
-				path,
-				{
-					params: {
-						inquiryTrackId: data.inquiryTrackId,
-						trackId: finalTrackId,
-					},
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				}
-			);
+			const finnotechResponse = await this.httpService.get(path, {
+				params: {
+					inquiryTrackId: data.inquiryTrackId,
+					trackId: finalTrackId,
+				},
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
 
-			const result: string =
-				finnotechResponse.data;
+			const result: string = finnotechResponse.data;
 			return result;
 		} catch (err) {
 			const error = err as AxiosError;
@@ -341,6 +338,42 @@ class OakService {
 
 			const result: IFinnotechDepositToIbanResponse =
 				finnotechResponse.data;
+			return result;
+		} catch (err) {
+			const error = err as AxiosError;
+			throw error;
+		}
+	}
+
+	/**
+	 * For cif inquiry service. [document page](https://devbeta.finnotech.ir/oak-cifInquiry.html?utm_medium=npm-package)
+	 * @param data required data for service call
+	 * @param trackId `Optional` tracking code. should be **unique** in every request
+	 * @returns service response body
+	 */
+	async cifInquiry(
+		data: { nid: string },
+		trackId?: string
+	): Promise<IFinnotechCifInquiryResponse> {
+		const serviceScope = SCOPES.cifInquiry.name;
+		const clientId = this.tokenService.clientId;
+		const path = `/oak/v2/clients/${clientId}/users/${data.nid}/cifInquiry`;
+		const finalTrackId = trackId || generateUUID();
+		const accessToken = await this.tokenService.getAccessToken(
+			serviceScope
+		);
+
+		try {
+			const finnotechResponse = await this.httpService.get(path, {
+				params: {
+					trackId: finalTrackId,
+				},
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			});
+
+			const result: IFinnotechCifInquiryResponse = finnotechResponse.data;
 			return result;
 		} catch (err) {
 			const error = err as AxiosError;

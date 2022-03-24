@@ -70,3 +70,11 @@ export interface IFinnotechDepositToIbanResponse {
 	};
 	status: string;
 }
+
+export interface IFinnotechCifInquiryResponse {
+	trackId: string;
+	result: {
+		cif: string;
+	};
+	status: string;
+}

@@ -28,4 +28,8 @@ export declare const SCOPES: {
         name: string;
         authMode: GRANT_TYPE;
     };
+    cifInquiry: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
 };

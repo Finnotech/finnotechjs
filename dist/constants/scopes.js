@@ -32,5 +32,9 @@ exports.SCOPES = {
         name: 'oak:deposit-to-iban:get',
         authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
     },
+    cifInquiry: {
+        name: 'oak:cif-inquiry:get',
+        authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+    },
 };
 //# sourceMappingURL=scopes.js.map
