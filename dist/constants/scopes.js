@@ -36,5 +36,9 @@ exports.SCOPES = {
         name: 'oak:cif-inquiry:get',
         authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
     },
+    shahabInquiry: {
+        name: 'oak:shahab-inquiry:get',
+        authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+    }
 };
 //# sourceMappingURL=scopes.js.map

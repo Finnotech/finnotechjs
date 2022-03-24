@@ -277,6 +277,39 @@ class OakService {
             }
         });
     }
+    /**
+     * For shahab inquiry service. [document page](https://devbeta.finnotech.ir/oak-shahabInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    shahabInquiry(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.shahabInquiry.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/users/${data.nid}/shahabInquiry`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                const finnotechResponse = yield this.httpService.get(path, {
+                    params: {
+                        birthDate: data.birthDate,
+                        identityNo: data.identityNumber || '',
+                        trackId: finalTrackId,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
 }
 exports.default = OakService;
 //# sourceMappingURL=oak.service.js.map

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { AxiosInstance } from 'axios';
 import TokenService from '../token/token.service';
-import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechCifInquiryResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse, IFinnotechSubmitGroupIbanInquiryResponse } from './interfaces';
+import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechCifInquiryResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse, IFinnotechShahabInquiryResponse, IFinnotechSubmitGroupIbanInquiryResponse } from './interfaces';
 declare class OakService {
     private readonly tokenService;
     private readonly httpService;
@@ -87,6 +87,22 @@ declare class OakService {
         deposit: string;
         /**
          * bank code from documentation
+         * - eghtesade novin: `0`
+         * - saman: `1`
+         * - sarmaye: `2`
+         * - tosee: `3`
+         * - sina: `4`
+         * - tejarat: `6`
+         * - sanat va tejarat: `7`
+         * - keshavarzi: `8`
+         * - tosee saderat: `9`
+         * - karafarin: `10`
+         * - ayande: `11`
+         * - saderat: `12`
+         * - melli: `13`
+         * - resaalat: `14`
+         * - ansar: `15`
+         * - iran zamin: `16`
          */
         bank: string;
     }, trackId?: string): Promise<IFinnotechDepositToIbanResponse>;
@@ -99,5 +115,22 @@ declare class OakService {
     cifInquiry(data: {
         nid: string;
     }, trackId?: string): Promise<IFinnotechCifInquiryResponse>;
+    /**
+     * For shahab inquiry service. [document page](https://devbeta.finnotech.ir/oak-shahabInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    shahabInquiry(data: {
+        nid: string;
+        /**
+         * It should be in `YYYYMMDD` jalaali format
+         */
+        birthDate: string;
+        /**
+         * **required** only if the person **birth date was _before_ 1368**
+         */
+        identityNumber?: string;
+    }, trackId?: string): Promise<IFinnotechShahabInquiryResponse>;
 }
 export default OakService;

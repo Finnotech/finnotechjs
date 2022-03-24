@@ -73,3 +73,18 @@ export interface IFinnotechCifInquiryResponse {
     };
     status: string;
 }
+export interface IFinnotechShahabInquiryResponse {
+    trackId: string;
+    result: {
+        nid: string;
+        birthDate: string;
+        shahabCode: string;
+        identityNo: string;
+        gender: string;
+        fatherName: string;
+        firstName: string;
+        lastName: string;
+        isConfirmed: string;
+    };
+    status: string;
+}

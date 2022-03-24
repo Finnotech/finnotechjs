@@ -33,4 +33,8 @@ export const SCOPES = {
 		name: 'oak:cif-inquiry:get',
 		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
 	},
+	shahabInquiry: {
+		name: 'oak:shahab-inquiry:get',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	}
 };

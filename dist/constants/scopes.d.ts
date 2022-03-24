@@ -32,4 +32,8 @@ export declare const SCOPES: {
         name: string;
         authMode: GRANT_TYPE;
     };
+    shahabInquiry: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
 };
