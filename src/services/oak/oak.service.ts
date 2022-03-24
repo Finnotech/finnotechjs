@@ -71,7 +71,7 @@ class OakService {
 			file: string | Buffer;
 		},
 		trackId?: string
-	): Promise<any> {
+	): Promise<IFinnotechSubmitGroupIbanInquiryResponse> {
 		const serviceScope = SCOPES.groupIbanInquiryPost.name;
 		const clientId = this.tokenService.clientId;
 		const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
@@ -106,6 +106,98 @@ class OakService {
 			);
 
 			const result: IFinnotechSubmitGroupIbanInquiryResponse =
+				finnotechResponse.data;
+			return result;
+		} catch (err) {
+			const error = err as AxiosError;
+			throw error;
+		}
+	}
+
+	/**
+	 * For retrying group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+	 * @param data required data for service call
+	 * @param trackId `Optional` tracking code. should be **unique** in every request
+	 * @returns service response body
+	 */
+	async retryGroupIbanInquiry(
+		data: {
+			/**
+			 * The **trackId** which used in **submitting** group iban inquiry request
+			 */
+			inquiryTrackId: string;
+		},
+		trackId?: string
+	): Promise<IFinnotechSubmitGroupIbanInquiryResponse> {
+		const serviceScope = SCOPES.groupIbanInquiryPost.name;
+		const clientId = this.tokenService.clientId;
+		const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
+		const finalTrackId = trackId || generateUUID();
+		const accessToken = await this.tokenService.getAccessToken(
+			serviceScope
+		);
+
+		try {
+			const dataForm = new FormData();
+			dataForm.append('retry', 'true'); //
+			dataForm.append('inquiryTrackId', data.inquiryTrackId);
+
+			const finnotechResponse = await this.httpService.post(
+				path,
+				dataForm,
+				{
+					params: {
+						trackId: finalTrackId,
+					},
+					headers: {
+						...dataForm.getHeaders(),
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			const result: IFinnotechSubmitGroupIbanInquiryResponse =
+				finnotechResponse.data;
+			return result;
+		} catch (err) {
+			const error = err as AxiosError;
+			throw error;
+		}
+	}
+
+	/**
+	 * For getting result of group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+	 * @param data required data for service call
+	 * @param trackId `Optional` tracking code. should be **unique** in every request
+	 * @returns csv content - `string`
+	 */
+	async getResultOfGroupIbanInquiry(
+		data: { inquiryTrackId: string },
+		trackId?: string
+	): Promise<string> {
+		const serviceScope = SCOPES.groupIbanInquiryGet.name;
+		const clientId = this.tokenService.clientId;
+		const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
+		const finalTrackId = trackId || generateUUID();
+		const accessToken = await this.tokenService.getAccessToken(
+			serviceScope
+		);
+
+		try {
+			const finnotechResponse = await this.httpService.get(
+				path,
+				{
+					params: {
+						inquiryTrackId: data.inquiryTrackId,
+						trackId: finalTrackId,
+					},
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			const result: string =
 				finnotechResponse.data;
 			return result;
 		} catch (err) {

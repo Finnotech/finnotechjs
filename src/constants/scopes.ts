@@ -13,6 +13,10 @@ export const SCOPES = {
 		name: 'oak:group-iban-inquiry:post',
 		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
 	},
+	groupIbanInquiryGet: {
+		name: 'oak:group-iban-inquiry:get',
+		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+	},
 	cardBalance: {
 		name: 'oak:card-balance:get',
 		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
