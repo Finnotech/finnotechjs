@@ -172,7 +172,12 @@ class OakService {
 	 * @returns csv content - `string`
 	 */
 	async getResultOfGroupIbanInquiry(
-		data: { inquiryTrackId: string },
+		data: {
+			/**
+			 * The **trackId** which used in **submitting** group iban inquiry request
+			 */
+			inquiryTrackId: string
+		},
 		trackId?: string
 	): Promise<string> {
 		const serviceScope = SCOPES.groupIbanInquiryGet.name;
