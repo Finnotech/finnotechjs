@@ -4,7 +4,7 @@ import FormData from 'form-data';
 import { SCOPES } from '../../constants/scopes';
 import FinnotechError from '../../common/error';
 import TokenService from '../token/token.service';
-import { generateUUID, convertBase64ToBlob } from '../../common/helper';
+import { generateUUID } from '../../common/helper';
 import {
 	IFinnotechCardBalanceResponse,
 	IFinnotechCardStatementResponse,
@@ -66,9 +66,9 @@ class OakService {
 	async submitGroupIbanInquiry(
 		data: {
 			/**
-			 * `csv` file of **ibans**. It should be `base64` encoded `string` or `Blob` file
+			 * `csv` file of **ibans**. It should be `base64` encoded `string` or `Buffer`
 			 */
-			file: string | Blob;
+			file: string | Buffer;
 		},
 		trackId?: string
 	): Promise<any> {
@@ -81,15 +81,15 @@ class OakService {
 		);
 
 		try {
-			let finalFile: Blob;
-			if (data.file instanceof Blob) {
+			let finalFile: Buffer;
+			if (data.file instanceof Buffer) {
 				finalFile = data.file;
 			} else {
-				finalFile = convertBase64ToBlob(data.file);
+				finalFile = Buffer.from(data.file, 'base64');
 			}
 
 			const dataForm = new FormData();
-			dataForm.append('ibansFile', finalFile);
+			dataForm.append('ibansFile', finalFile, 'ibans.csv');
 
 			const finnotechResponse = await this.httpService.post(
 				path,

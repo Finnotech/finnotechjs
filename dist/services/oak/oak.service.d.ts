@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { AxiosInstance } from 'axios';
 import TokenService from '../token/token.service';
 import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse } from './interfaces';
@@ -22,9 +23,9 @@ declare class OakService {
      */
     submitGroupIbanInquiry(data: {
         /**
-         * `csv` file of **ibans**. It should be `base64` encoded `string` or `Blob` file
+         * `csv` file of **ibans**. It should be `base64` encoded `string` or `Buffer`
          */
-        file: string | Blob;
+        file: string | Buffer;
     }, trackId?: string): Promise<any>;
     /**
      * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)

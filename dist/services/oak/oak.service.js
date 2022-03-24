@@ -64,14 +64,14 @@ class OakService {
             const accessToken = yield this.tokenService.getAccessToken(serviceScope);
             try {
                 let finalFile;
-                if (data.file instanceof Blob) {
+                if (data.file instanceof Buffer) {
                     finalFile = data.file;
                 }
                 else {
-                    finalFile = (0, helper_1.convertBase64ToBlob)(data.file);
+                    finalFile = Buffer.from(data.file, 'base64');
                 }
                 const dataForm = new form_data_1.default();
-                dataForm.append('ibansFile', finalFile);
+                dataForm.append('ibansFile', finalFile, 'ibans.csv');
                 const finnotechResponse = yield this.httpService.post(path, dataForm, {
                     params: {
                         trackId: finalTrackId,
