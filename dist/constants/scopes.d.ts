@@ -12,6 +12,10 @@ export declare const SCOPES: {
         name: string;
         authMode: GRANT_TYPE;
     };
+    groupIbanInquiryGet: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
     cardBalance: {
         name: string;
         authMode: GRANT_TYPE;

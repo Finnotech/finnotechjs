@@ -88,6 +88,70 @@ class OakService {
         });
     }
     /**
+     * For retrying group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    retryGroupIbanInquiry(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.groupIbanInquiryPost.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                const dataForm = new form_data_1.default();
+                dataForm.append('retry', 'true'); //
+                dataForm.append('inquiryTrackId', data.inquiryTrackId);
+                const finnotechResponse = yield this.httpService.post(path, dataForm, {
+                    params: {
+                        trackId: finalTrackId,
+                    },
+                    headers: Object.assign(Object.assign({}, dataForm.getHeaders()), { Authorization: `Bearer ${accessToken}` }),
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
+     * For getting result of group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns csv content - `string`
+     */
+    getResultOfGroupIbanInquiry(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.groupIbanInquiryGet.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/groupIbanInquiry`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const accessToken = yield this.tokenService.getAccessToken(serviceScope);
+            try {
+                const finnotechResponse = yield this.httpService.get(path, {
+                    params: {
+                        inquiryTrackId: data.inquiryTrackId,
+                        trackId: finalTrackId,
+                    },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
      * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)
      * @param data required data for service call
      * @param trackId `Optional` tracking code. should be **unique** in every request

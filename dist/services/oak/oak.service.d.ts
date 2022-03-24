@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { AxiosInstance } from 'axios';
 import TokenService from '../token/token.service';
-import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse } from './interfaces';
+import { IFinnotechCardBalanceResponse, IFinnotechCardStatementResponse, IFinnotechDepositToIbanResponse, IFinnotechIbanInquiryResponse, IFinnotechSubmitGroupIbanInquiryResponse } from './interfaces';
 declare class OakService {
     private readonly tokenService;
     private readonly httpService;
@@ -26,7 +26,31 @@ declare class OakService {
          * `csv` file of **ibans**. It should be `base64` encoded `string` or `Buffer`
          */
         file: string | Buffer;
-    }, trackId?: string): Promise<any>;
+    }, trackId?: string): Promise<IFinnotechSubmitGroupIbanInquiryResponse>;
+    /**
+     * For retrying group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    retryGroupIbanInquiry(data: {
+        /**
+         * The **trackId** which used in **submitting** group iban inquiry request
+         */
+        inquiryTrackId: string;
+    }, trackId?: string): Promise<IFinnotechSubmitGroupIbanInquiryResponse>;
+    /**
+     * For getting result of group iban inquiry service request. [document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns csv content - `string`
+     */
+    getResultOfGroupIbanInquiry(data: {
+        /**
+         * The **trackId** which used in **submitting** group iban inquiry request
+         */
+        inquiryTrackId: string;
+    }, trackId?: string): Promise<string>;
     /**
      * For card balance service. [document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)
      * @param data required data for service call
