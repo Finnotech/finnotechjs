@@ -1,7 +1,7 @@
 export enum GRANT_TYPE {
 	CLIENT_CREDENTIALS = 'client_credentials',
 	AUTHORIZATION_CODE = 'authorization_code',
-	SMS = '',
+	SMS = 'SMS',
 }
 
 export const SCOPES = {
