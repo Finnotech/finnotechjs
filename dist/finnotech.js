@@ -18,16 +18,17 @@ class Finnotech {
         this._getRefreshToken = config.getRefreshToken;
         this._setTokens = config.setTokens;
         this._useSandBox = config.useSandBox ? true : false;
-        //
-        const httpService = (0, http_1.default)({ useSandBox: this._useSandBox });
-        this.TokenService = new token_service_1.default({
+        // due to httpService need to initiate TokenService again for refresh functionalities
+        const tokenServiceInitialData = {
             clientId: this._clientId,
             clientSecret: this._clientSecret,
             nid: this._nid,
             getAccessTokenFunction: this._getAccessToken,
             getRefreshTokenFunction: this._getRefreshToken,
             setTokensFunction: this._setTokens,
-        }, httpService);
+        };
+        const httpService = (0, http_1.default)({ useSandBox: this._useSandBox }, tokenServiceInitialData);
+        this.TokenService = new token_service_1.default(tokenServiceInitialData, httpService);
         this.OakService = new oak_service_1.default(this.TokenService, httpService);
     }
 }

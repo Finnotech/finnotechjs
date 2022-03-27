@@ -41,7 +41,76 @@ class TokenService {
         });
     }
     /**
-     * For getting client-credentials token for requested scopes by their scope names. **This function will finally call `setTokens` function**. [document page](https://devbeta.finnotech.ir/boomrang-get-clientCredential-token.html?sandbox=undefined)
+     * **Internal Method** for getting service refresh token
+     * @param scopeName scope name
+     * @returns result of initiated `getRefreshToken` function
+     */
+    getRefreshToken(scopeName) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this._getRefreshToken) {
+                throw new error_1.default('getRefreshToken', 'getRefreshToken function is not defined');
+            }
+            if (this._getRefreshToken.constructor.name === 'AsyncFunction') {
+                return yield this._getRefreshToken(scopeName);
+            }
+            return this._getRefreshToken(scopeName);
+        });
+    }
+    /**
+     * **Internal Method** for set service token
+     * @param tokenData setTokens props
+     */
+    setTokens(tokenData) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this._setTokens) {
+                throw new error_1.default('setTokens', 'setTokens function is not defined');
+            }
+            if (this._setTokens.constructor.name === 'AsyncFunction') {
+                return yield this._setTokens(tokenData);
+            }
+            return this._setTokens(tokenData);
+        });
+    }
+    /**
+     * For refresh client-credentials token for requested scope by their scope name.
+     * _This function automatically call in case of `invalid token`_.
+     * **This function will finally call `setTokens` function**. [document page](https://devbeta.finnotech.ir/boomrang-get-clientCredential-token.html?utm_medium=npm-package)
+     * @param scopeName List of scope names. Final token information will be for these scopes
+     */
+    getClientCredentialsRefreshToken(scopeName) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const scopeRefreshToken = yield this.getRefreshToken(scopeName);
+            const authHeader = 'Basic ' +
+                Buffer.from(`${this.clientId}:${this._clientSecret}`).toString('base64');
+            const requestData = {
+                grant_type: 'refresh_token',
+                token_type: 'CLIENT-CREDENTIAL',
+                refresh_token: scopeRefreshToken,
+            };
+            try {
+                const finnotechResponse = yield this._httpService.post('/dev/v2/oauth2/token', requestData, {
+                    headers: {
+                        Authorization: authHeader,
+                    },
+                });
+                const { value, refreshToken, lifeTime, scopes, } = finnotechResponse.data.result;
+                yield this.setTokens({
+                    accessToken: value,
+                    refreshToken,
+                    lifeTime,
+                    scopes,
+                    tokenType: scopes_1.GRANT_TYPE.CLIENT_CREDENTIALS,
+                });
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
+     * For getting client-credentials token for requested scopes by their scope names.
+     * **This function will finally call `setTokens` function**. [document page](https://devbeta.finnotech.ir/boomrang-get-clientCredential-token.html?utm_medium=npm-package)
      * @param scopes List of scope names. Final token information will be for these scopes
      */
     getClientCredentialToken(scopes) {
@@ -63,19 +132,7 @@ class TokenService {
                     },
                 });
                 const { value, refreshToken, lifeTime, scopes, } = finnotechResponse.data.result;
-                if (!this._setTokens) {
-                    return;
-                }
-                if (this._setTokens.constructor.name === 'AsyncFunction') {
-                    return yield this._setTokens({
-                        accessToken: value,
-                        refreshToken,
-                        lifeTime,
-                        scopes,
-                        tokenType: scopes_1.GRANT_TYPE.CLIENT_CREDENTIALS,
-                    });
-                }
-                return this._setTokens({
+                yield this.setTokens({
                     accessToken: value,
                     refreshToken,
                     lifeTime,
