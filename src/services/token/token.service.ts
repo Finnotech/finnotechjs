@@ -94,6 +94,7 @@ class TokenService {
 
 	/**
 	 * For refresh client-credentials token for requested scope by their scope name. 
+	 * _This function automatically call in case of `invalid token`_.
 	 * **This function will finally call `setTokens` function**. [document page](https://devbeta.finnotech.ir/boomrang-get-clientCredential-token.html?utm_medium=npm-package)
 	 * @param scopeName List of scope names. Final token information will be for these scopes
 	 */

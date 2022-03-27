@@ -47,6 +47,7 @@ class OakService {
 				params: { iban: data.iban, trackId: finalTrackId },
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
+					'X-Scope-Name': serviceScope,
 				},
 			});
 
@@ -103,6 +104,7 @@ class OakService {
 					headers: {
 						...dataForm.getHeaders(),
 						Authorization: `Bearer ${accessToken}`,
+						'X-Scope-Name': serviceScope,
 					},
 				}
 			);
@@ -154,6 +156,7 @@ class OakService {
 					headers: {
 						...dataForm.getHeaders(),
 						Authorization: `Bearer ${accessToken}`,
+						'X-Scope-Name': serviceScope,
 					},
 				}
 			);
@@ -198,6 +201,7 @@ class OakService {
 				},
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
+					'X-Scope-Name': serviceScope,
 				},
 			});
 
@@ -235,6 +239,7 @@ class OakService {
 					params: { trackId: finalTrackId },
 					headers: {
 						Authorization: `Bearer ${accessToken}`,
+						'X-Scope-Name': serviceScope,
 					},
 				}
 			);
@@ -288,6 +293,7 @@ class OakService {
 					params: { trackId: finalTrackId },
 					headers: {
 						Authorization: `Bearer ${accessToken}`,
+						'X-Scope-Name': serviceScope,
 					},
 				}
 			);
@@ -350,6 +356,7 @@ class OakService {
 				},
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
+					'X-Scope-Name': serviceScope,
 				},
 			});
 
@@ -387,6 +394,7 @@ class OakService {
 				},
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
+					'X-Scope-Name': serviceScope,
 				},
 			});
 
@@ -434,7 +442,8 @@ class OakService {
 					trackId: finalTrackId,
 				},
 				headers: {
-					Authorization: `Bearer ${accessToken}`
+					Authorization: `Bearer ${accessToken}`,
+					'X-Scope-Name': serviceScope,
 				}
 			});
 

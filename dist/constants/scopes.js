@@ -5,7 +5,7 @@ var GRANT_TYPE;
 (function (GRANT_TYPE) {
     GRANT_TYPE["CLIENT_CREDENTIALS"] = "client_credentials";
     GRANT_TYPE["AUTHORIZATION_CODE"] = "authorization_code";
-    GRANT_TYPE["SMS"] = "";
+    GRANT_TYPE["SMS"] = "SMS";
 })(GRANT_TYPE = exports.GRANT_TYPE || (exports.GRANT_TYPE = {}));
 exports.SCOPES = {
     ibanInquiry: {

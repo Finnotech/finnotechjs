@@ -38,6 +38,7 @@ class OakService {
                     params: { iban: data.iban, trackId: finalTrackId },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     },
                 });
                 const result = finnotechResponse.data;
@@ -76,7 +77,7 @@ class OakService {
                     params: {
                         trackId: finalTrackId,
                     },
-                    headers: Object.assign(Object.assign({}, dataForm.getHeaders()), { Authorization: `Bearer ${accessToken}` }),
+                    headers: Object.assign(Object.assign({}, dataForm.getHeaders()), { Authorization: `Bearer ${accessToken}`, 'X-Scope-Name': serviceScope }),
                 });
                 const result = finnotechResponse.data;
                 return result;
@@ -108,7 +109,7 @@ class OakService {
                     params: {
                         trackId: finalTrackId,
                     },
-                    headers: Object.assign(Object.assign({}, dataForm.getHeaders()), { Authorization: `Bearer ${accessToken}` }),
+                    headers: Object.assign(Object.assign({}, dataForm.getHeaders()), { Authorization: `Bearer ${accessToken}`, 'X-Scope-Name': serviceScope }),
                 });
                 const result = finnotechResponse.data;
                 return result;
@@ -140,6 +141,7 @@ class OakService {
                     },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     },
                 });
                 const result = finnotechResponse.data;
@@ -169,6 +171,7 @@ class OakService {
                     params: { trackId: finalTrackId },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     },
                 });
                 const result = finnotechResponse.data;
@@ -202,6 +205,7 @@ class OakService {
                     params: { trackId: finalTrackId },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     },
                 });
                 const result = finnotechResponse.data;
@@ -235,6 +239,7 @@ class OakService {
                     },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     },
                 });
                 const result = finnotechResponse.data;
@@ -266,6 +271,7 @@ class OakService {
                     },
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     },
                 });
                 const result = finnotechResponse.data;
@@ -298,7 +304,8 @@ class OakService {
                         trackId: finalTrackId,
                     },
                     headers: {
-                        Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${accessToken}`,
+                        'X-Scope-Name': serviceScope,
                     }
                 });
                 const result = finnotechResponse.data;
