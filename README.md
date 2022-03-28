@@ -12,6 +12,7 @@ This project/package is to make use of [Finnotech](https://www.finnotech.ir?utm_
       - [`getClientCredentialToken`](#getclientcredentialtoken)
     - [Oak - Deposit base services](#oak---deposit-base-services)
       - [`ibanInquiry` - استعلام شماره شبا](#ibaninquiry---استعلام-شماره-شبا)
+      - [`groupIbanInquiry` - استعلام شبا گروهی](#groupibaninquiry---استعلام-شبا-گروهی)
       - [`cardBalance` - دریافت موجودی بن کارت](#cardbalance---دریافت-موجودی-بن-کارت)
       - [`cardStatement` - دریافت گردش بن کارت](#cardstatement---دریافت-گردش-بن-کارت)
       - [`depositToIban` - تبدیل شماره حساب به شبا](#deposittoiban---تبدیل-شماره-حساب-به-شبا)
@@ -99,7 +100,20 @@ For iban inquiry service ([document page](https://devbeta.finnotech.ir/oak-ibanI
 ```js
 OakService.ibanInquiry({ iban: 'IRxxxxxxxxxxxxxxxxxxxxxxxx' }); // return Promise<IFinnotechIbanInquiryResponse>
 ```
-<!-- #### `groupIbanInquiry` -->
+#### `groupIbanInquiry` - استعلام شبا گروهی
+For group iban inquiry service ([document page](https://devbeta.finnotech.ir/oak-groupIbanInquiry.html?utm_medium=npm-package)):
+- submit group iban inquiry:
+  ```js
+  OakService.submitGroupIbanInquiry({ file: 'csv buffer or base64 content' }); // return Promise<IFinnotechSubmitGroupIbanInquiryResponse>
+  ```
+- get result of group iban inquiry:
+  ```js
+  OakService.getResultOfGroupIbanInquiry({ inquiryTrackId: 'submit track id' }); // return Promise<string>
+  ```
+- retry group iban inquiry request:
+  ```js
+  OakService.retryGroupIbanInquiry({ inquiryTrackId: 'submit track id' }); // return Promise<IFinnotechSubmitGroupIbanInquiryResponse>
+  ```
 
 #### `cardBalance` - دریافت موجودی بن کارت
 For card balance service ([document page](https://devbeta.finnotech.ir/oak-card-balance.html?utm_medium=npm-package)). e.g.
