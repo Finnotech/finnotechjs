@@ -44,5 +44,9 @@ exports.SCOPES = {
         name: 'credit:facility-inquiry:get',
         authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
     },
+    backChequeInquiry: {
+        name: 'redit:back-cheques:get',
+        authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
+    },
 };
 //# sourceMappingURL=scopes.js.map

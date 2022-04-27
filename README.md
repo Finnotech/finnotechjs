@@ -20,6 +20,8 @@ This project/package is to make use of [Finnotech](https://www.finnotech.ir?utm_
       - [`shahabInquiry` - استعلام کد شهاب](#shahabinquiry---استعلام-کد-شهاب)
     - [Credit](#credit---credit-base-services)
       - [`facilityInquiry` - استعلام تسهیلات](#facilityinquiry---استعلام-تسهیلات)
+      - [`backChequeInquiry` - استعلام چک برگشتی](#backchequeinquiry---استعلام-چک-برگشتی)
+
   - [Todos](#todos)
 
 ## Installing
@@ -160,12 +162,18 @@ OakService.shahabInquiry({
 <hr/>
 
 ### Credit - Credit base services
+
 #### `facilityInquiry` - استعلام تسهیلات
 For facility inquiry service ([document page](https://devbeta.finnotech.ir/credit-facility-inquiry-get.html?utm_medium=npm-package)). e.g.
 ```js
 CreditService.facilityInquiry({ nid: 'xxxxxxxxxx' }); // return Promise<IFinnotechFacilityInquiryResponse>
 ```
 
+#### `backChequeInquiry` - استعلام چک برگشتی
+For backCheque inquiry service ([document page](https://devbeta.finnotech.ir/credit-back-cheques-get.html?utm_medium=npm-package)). e.g.
+```js
+CreditService.backChequeInquiry({ nid: 'xxxxxxxxxx' }); // return Promise<IFinnotechBackChequeInquiryResponse>
+```
 ## Todos
 - [x] Client-Credentials token
 - [x] Oak only Client-Credentials services

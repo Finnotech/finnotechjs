@@ -17,7 +17,7 @@ class CreditService {
         this.httpService = httpService;
     }
     /**
-     * For backCheque inquiry service. [document page](https://devbeta.finnotech.ir/credit-back-cheques-get.html?utm_medium=npm-package)
+     * For facility inquiry service. [document page](https://devbeta.finnotech.ir/credit-facility-inquiry-get.html?utm_medium=npm-package)
      * @param data required data for service call
      * @param trackId `Optional` tracking code. should be **unique** in every request
      * @returns service response body
@@ -27,6 +27,38 @@ class CreditService {
             const serviceScope = scopes_1.SCOPES.facilityInquiry.name;
             const clientId = this.tokenService.clientId;
             const path = `/oak/v2/clients/${clientId}/users/${data.nid}/facilityInquiry`;
+            const finalTrackId = trackId || (0, helper_1.generateUUID)();
+            const ccToken = yield this.tokenService.getClientCredentialToken([
+                serviceScope,
+            ]);
+            try {
+                const finnotechResponse = yield this.httpService.get(path, {
+                    params: { trackId: finalTrackId },
+                    headers: {
+                        Authorization: `Bearer ${ccToken}`,
+                        'X-Scope-Name': serviceScope,
+                    },
+                });
+                const result = finnotechResponse.data;
+                return result;
+            }
+            catch (err) {
+                const error = err;
+                throw error;
+            }
+        });
+    }
+    /**
+     * For backCheque inquiry service. [document page](https://devbeta.finnotech.ir/credit-back-cheques-get.html?utm_medium=npm-package)
+     * @param data required data for service call
+     * @param trackId `Optional` tracking code. should be **unique** in every request
+     * @returns service response body
+     */
+    backChequeInquiry(data, trackId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const serviceScope = scopes_1.SCOPES.backChequeInquiry.name;
+            const clientId = this.tokenService.clientId;
+            const path = `/oak/v2/clients/${clientId}/users/${data.nid}/backCheques`;
             const finalTrackId = trackId || (0, helper_1.generateUUID)();
             const ccToken = yield this.tokenService.getClientCredentialToken([
                 serviceScope,

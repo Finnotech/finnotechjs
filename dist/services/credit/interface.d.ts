@@ -43,3 +43,22 @@ export interface IFinnotechFacilityInquiryResponse {
     status: string;
     trackId: string;
 }
+export interface IFinnotechBackChequeResponse {
+    result: {
+        chequeList: {
+            accountNumber: string;
+            amount: string;
+            backDate: string;
+            bankCode: string;
+            branchCode: string;
+            branchDescription: string;
+            date: string;
+            id: string;
+            number: string;
+        }[];
+        nid: string;
+        name: string;
+    };
+    status: string;
+    trackId: string;
+}
