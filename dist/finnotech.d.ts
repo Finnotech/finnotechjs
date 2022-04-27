@@ -1,4 +1,5 @@
 import { GRANT_TYPE } from './constants/scopes';
+import CreditService from './services/credit/credit.service';
 import OakService from './services/oak/oak.service';
 import TokenService from './services/token/token.service';
 declare class Finnotech {
@@ -11,6 +12,7 @@ declare class Finnotech {
     private readonly _setTokens;
     readonly TokenService: TokenService;
     readonly OakService: OakService;
+    readonly CreditService: CreditService;
     /**
      * @param config basic information for api call. To get this info, go to [Finnotech Console](https://console.finnotech.ir) and then paste them here
      */

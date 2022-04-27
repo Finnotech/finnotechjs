@@ -18,6 +18,8 @@ This project/package is to make use of [Finnotech](https://www.finnotech.ir?utm_
       - [`depositToIban` - تبدیل شماره حساب به شبا](#deposittoiban---تبدیل-شماره-حساب-به-شبا)
       - [`cifInquiry` - استعلام شماره مشتری](#cifinquiry---استعلام-شماره-مشتری)
       - [`shahabInquiry` - استعلام کد شهاب](#shahabinquiry---استعلام-کد-شهاب)
+    - [Credit](#credit---credit-base-services)
+      - [`facilityInquiry` - استعلام تسهیلات](#facilityinquiry---استعلام-تسهیلات)
   - [Todos](#todos)
 
 ## Installing
@@ -153,6 +155,15 @@ OakService.shahabInquiry({
     nid: '1234567890',
     birthData: '13790430',
 }); // return Promise<IFinnotechShahabInquiryResponse>
+```
+
+<hr/>
+
+### Credit - Credit base services
+#### `facilityInquiry` - استعلام تسهیلات
+For facility inquiry service ([document page](https://devbeta.finnotech.ir/credit-facility-inquiry-get.html?utm_medium=npm-package)). e.g.
+```js
+CreditService.facilityInquiry({ nid: 'xxxxxxxxxx' }); // return Promise<IFinnotechFacilityInquiryResponse>
 ```
 
 ## Todos
