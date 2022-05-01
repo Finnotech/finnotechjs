@@ -33,11 +33,10 @@ class CreditService {
 	): Promise<IFinnotechFacilityInquiryResponse> {
 		const serviceScope = SCOPES.facilityInquiry.name;
 		const clientId = this.tokenService.clientId;
-		const path = `/oak/v2/clients/${clientId}/users/${data.nid}/facilityInquiry`;
+		const path = `/credit/v2/clients/${clientId}/users/${data.nid}/facilityInquiry`;
 		const finalTrackId = trackId || generateUUID();
-		const ccToken = await this.tokenService.getClientCredentialToken([
-			serviceScope,
-		]);
+		await this.tokenService.getClientCredentialToken([serviceScope]);
+		const ccToken = this.tokenService.getAccessToken(serviceScope);
 
 		try {
 			const finnotechResponse = await this.httpService.get(path, {
@@ -74,11 +73,10 @@ class CreditService {
 	): Promise<IFinnotechBackChequeResponse> {
 		const serviceScope = SCOPES.backChequeInquiry.name;
 		const clientId = this.tokenService.clientId;
-		const path = `/oak/v2/clients/${clientId}/users/${data.nid}/backCheques`;
+		const path = `/credit/v2/clients/${clientId}/users/${data.nid}/backCheques`;
 		const finalTrackId = trackId || generateUUID();
-		const ccToken = await this.tokenService.getClientCredentialToken([
-			serviceScope,
-		]);
+		await this.tokenService.getClientCredentialToken([serviceScope]);
+		const ccToken = this.tokenService.getAccessToken(serviceScope);
 
 		try {
 			const finnotechResponse = await this.httpService.get(path, {

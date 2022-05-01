@@ -42,7 +42,7 @@ export const SCOPES = {
 		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
 	},
 	backChequeInquiry: {
-		name: 'redit:back-cheques:get',
+		name: 'credit:back-cheques:get',
 		authMode: GRANT_TYPE.CLIENT_CREDENTIALS,
 	},
 };
