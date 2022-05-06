@@ -36,4 +36,12 @@ export declare const SCOPES: {
         name: string;
         authMode: GRANT_TYPE;
     };
+    facilityInquiry: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
+    backChequeInquiry: {
+        name: string;
+        authMode: GRANT_TYPE;
+    };
 };

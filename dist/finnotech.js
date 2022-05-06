@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("./common/http"));
+const credit_service_1 = __importDefault(require("./services/credit/credit.service"));
 const oak_service_1 = __importDefault(require("./services/oak/oak.service"));
 const token_service_1 = __importDefault(require("./services/token/token.service"));
 class Finnotech {
@@ -30,6 +31,7 @@ class Finnotech {
         const httpService = (0, http_1.default)({ useSandBox: this._useSandBox }, tokenServiceInitialData);
         this.TokenService = new token_service_1.default(tokenServiceInitialData, httpService);
         this.OakService = new oak_service_1.default(this.TokenService, httpService);
+        this.CreditService = new credit_service_1.default(this.TokenService, httpService);
     }
 }
 exports.default = Finnotech;
