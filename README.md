@@ -1,8 +1,8 @@
-# Finnotech-Easy
+# Finnotechjs
 This project/package is to make use of [Finnotech](https://www.finnotech.ir?utm_medium=npm-package) open api easier in nodejs projects.
 
 ## Table of Content
-- [Finnotech-Easy](#finnotech-easy)
+- [Finnotechjs](#finnotechjs)
   - [Table of Content](#table-of-content)
   - [Installing](#installing)
   - [Example](#example)
@@ -18,21 +18,20 @@ This project/package is to make use of [Finnotech](https://www.finnotech.ir?utm_
       - [`depositToIban` - تبدیل شماره حساب به شبا](#deposittoiban---تبدیل-شماره-حساب-به-شبا)
       - [`cifInquiry` - استعلام شماره مشتری](#cifinquiry---استعلام-شماره-مشتری)
       - [`shahabInquiry` - استعلام کد شهاب](#shahabinquiry---استعلام-کد-شهاب)
-    - [Credit](#credit---credit-base-services)
+    - [Credit - Credit base services](#credit---credit-base-services)
       - [`facilityInquiry` - استعلام تسهیلات](#facilityinquiry---استعلام-تسهیلات)
       - [`backChequeInquiry` - استعلام چک برگشتی](#backchequeinquiry---استعلام-چک-برگشتی)
-
   - [Todos](#todos)
 
 ## Installing
 Using npm:
 ```bash
-$ npm i "https://github.com/ARTM2000/finnotech-easy.git"
+$ npm i "https://github.com/Finnotech/finnotechjs.git"
 ```
 
 ## Example
 ```js
-import Finnotech, { SCOPES } from 'finnotech-easy';
+import Finnotech, { SCOPES } from 'finnotechjs';
 
 const finnotechServices = new Finnotech({
     clientId: 'myAppName', 

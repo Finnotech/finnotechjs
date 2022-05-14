@@ -1,5 +1,5 @@
 {
-  "name": "finnotech-easy",
+  "name": "finnotechjs",
   "version": "1.2.0",
   "description": "finnotech services for developers easy use",
   "main": "dist/index.js",
