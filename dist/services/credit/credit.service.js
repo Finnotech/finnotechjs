@@ -26,11 +26,10 @@ class CreditService {
         return __awaiter(this, void 0, void 0, function* () {
             const serviceScope = scopes_1.SCOPES.facilityInquiry.name;
             const clientId = this.tokenService.clientId;
-            const path = `/oak/v2/clients/${clientId}/users/${data.nid}/facilityInquiry`;
+            const path = `/credit/v2/clients/${clientId}/users/${data.nid}/facilityInquiry`;
             const finalTrackId = trackId || (0, helper_1.generateUUID)();
-            const ccToken = yield this.tokenService.getClientCredentialToken([
-                serviceScope,
-            ]);
+            yield this.tokenService.getClientCredentialToken([serviceScope]);
+            const ccToken = this.tokenService.getAccessToken(serviceScope);
             try {
                 const finnotechResponse = yield this.httpService.get(path, {
                     params: { trackId: finalTrackId },
@@ -58,11 +57,10 @@ class CreditService {
         return __awaiter(this, void 0, void 0, function* () {
             const serviceScope = scopes_1.SCOPES.backChequeInquiry.name;
             const clientId = this.tokenService.clientId;
-            const path = `/oak/v2/clients/${clientId}/users/${data.nid}/backCheques`;
+            const path = `/credit/v2/clients/${clientId}/users/${data.nid}/backCheques`;
             const finalTrackId = trackId || (0, helper_1.generateUUID)();
-            const ccToken = yield this.tokenService.getClientCredentialToken([
-                serviceScope,
-            ]);
+            yield this.tokenService.getClientCredentialToken([serviceScope]);
+            const ccToken = this.tokenService.getAccessToken(serviceScope);
             try {
                 const finnotechResponse = yield this.httpService.get(path, {
                     params: { trackId: finalTrackId },
